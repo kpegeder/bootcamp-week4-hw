@@ -11,7 +11,10 @@
     <div class="container">
       <div class="introQuiz">
         <h2>Coding Quiz</h2>
-        <p></p>
+        <p>
+          Test your knowlegde on a timed code-related quiz. See how your do
+          against others by viewing the highscore.
+        </p>
         <a class="visitHighscore" href="">View Highscore</a>
         <button type="button" class="startBtn btn">Start Quiz</button>
       </div>
@@ -21,15 +24,13 @@
         <div class="possibleAnswers"></div>
       </div>
       <div class="record-score">
-        <form id="user" mothod="POST">
-          <label for="userName">Name</label>
-          <input
-            type="text"
-            placeholder="Jane Doe"
-            name="userName"
-            id="userName"
-          />
-        </form>
+        <label for="userName">Name</label>
+        <input
+          type="text"
+          placeholder="Jane Doe"
+          name="userName"
+          id="userName"
+        />
         <button type="button" class="recordBtn btn">Submit</button>
       </div>
       <div class="highscore" id="highscore">

@@ -6,6 +6,7 @@
 .introQuiz {
   text-align: center;
 }
+
 .question-container {
   text-align: center;
 }
@@ -23,6 +24,7 @@
 .btn {
   color: blue;
   padding: 5px;
+  margin: 2px 10px;
 }
 
 li {
@@ -33,8 +35,9 @@ li {
 .highscore {
   text-align: center;
 }
+
 #user {
-  padding: 5px;
+  padding: 10px;
 }
 
 ul {
@@ -46,4 +49,14 @@ ul {
   left: 15px;
   top: 15px;
   position: fixed;
+  color: purple;
+}
+
+.questionNumber {
+  font-size: 24px;
+  margin: 10px;
+}
+
+p {
+  font-size: 18px;
 }

@@ -92,11 +92,33 @@ let correct = 0;
 let count = 0;
 let record = [];
 
+// Get stored quiz takers
+init();
+
 timeEl.textContent = "Time: " + secondsLeft;
 
 startQuiz.addEventListener("click", beginQuiz);
+
+// Hide displays
 recordScore.style.display = "none";
 highscore.style.display = "none";
+
+possibleAnswer.addEventListener("click", setQuestion);
+
+// Display high score users
+recordBtn.addEventListener("click", renderUser);
+
+// Record quiz taker
+recordBtn.addEventListener("click", recordUser);
+
+// Clear highscore
+clearBtn.addEventListener("click", clearHighscore);
+
+// Display highscore from home page
+seeHighscore.addEventListener("click", renderUser);
+
+// Back button
+backBtn.addEventListener("click", goBack);
 
 // Display Intro to Quiz
 function beginQuiz() {
@@ -105,12 +127,10 @@ function beginQuiz() {
   setTime();
 }
 
-possibleAnswer.addEventListener("click", setQuestion);
-
 // Display question
 function setQuestion() {
   // Check status of question
-  if (count == questionList.length) {
+  if (count == questionList.length || secondsLeft <= 0) {
     endQuiz();
     return;
   }
@@ -119,7 +139,6 @@ function setQuestion() {
     "Question " + (count + 1) + " of " + questionList.length;
   // Display Questions and Answers
   question.textContent = questionList[count].question;
-  console.log("Display Question " + (count + 1));
   // Clear the list of answers
   possibleAnswer.textContent = "";
   // Create List and Button
@@ -135,30 +154,25 @@ function setQuestion() {
   }
 }
 
+// See if the answer correct and create a penalty
 function checkAnwser() {
-  let element = event.target;
-  console.log("Select Answer " + element.textContent);
-  console.log(
-    "Answer " + questionList[count].multipleChoice[questionList[count].answer]
-  );
+  let element = event.target.textContent;
   if (
-    element.textContent ===
-    questionList[count].multipleChoice[questionList[count].answer]
+    element === questionList[count].multipleChoice[questionList[count].answer]
   ) {
-    correct++;
+    correct += 5;
   } else {
-    secondsLeft -= 9;
-    console.log("wrong answer");
+    secondsLeft -= 4;
   }
-
   count++;
 }
 
+// Show show and get user name
 function endQuiz() {
   questionContainer.innerHTML = "";
   recordScore.style.display = "block";
 
-  // Display score
+  // Display score by adding html elements
   let h1 = document.createElement("h1");
   let p = document.createElement("p");
 
@@ -168,16 +182,14 @@ function endQuiz() {
   recordScore.appendChild(p);
   recordScore.insertBefore(h1, recordScore.childNodes[0]);
   recordScore.insertBefore(p, recordScore.childNodes[1]);
+
+  secondsLeft = 0;
 }
 
-recordBtn.addEventListener("click", recordUser);
-recordBtn.addEventListener("click", renderUser);
-
-init();
-
+// Record the quiz taker function
 function recordUser() {
   recordScore.style.display = "none";
-  event.preventDefault();
+
   let userID = {
     name: userName.value.trim(),
     score: correct
@@ -193,10 +205,12 @@ function recordUser() {
   storeHighScore();
 }
 
+// Store high score
 function storeHighScore() {
   localStorage.setItem("userID", JSON.stringify(record));
 }
 
+// Get stored users
 function init() {
   let storedUsers = JSON.parse(localStorage.getItem("userID"));
   if (storedUsers !== null) {
@@ -204,10 +218,12 @@ function init() {
   }
 }
 
+// Show quiz taker function
 function renderUser() {
   event.preventDefault();
-  highscore.style.display = "block";
+  introQuiz.style.display = "none";
   timeEl.style.display = "none";
+  highscore.style.display = "block";
 
   for (let k = 0; k < record.length; k++) {
     // Get user name and score
@@ -225,35 +241,23 @@ function renderUser() {
 function setTime() {
   let timerInterval = setInterval(function () {
     secondsLeft--;
-    console.log(secondsLeft);
 
     timeEl.textContent = "Time: " + secondsLeft;
 
-    if (secondsLeft <= 0 || count == questionList.length) {
+    if (secondsLeft <= 0) {
       clearInterval(timerInterval);
       timeEl.textContent = "Time: 0";
     }
   }, 1000);
 }
 
-// Clear highscore
-clearBtn.addEventListener("click", clearHighscore);
+// Clear highscore function
 function clearHighscore() {
-  console.log("Clear Highscore");
   localStorage.clear();
   userList.innerHTML = "";
 }
 
-// Back button
-backBtn.addEventListener("click", goBack);
+// Go back function
 function goBack() {
-  console.log("Back");
   location.reload();
-}
-
-seeHighscore.addEventListener("click", displayHighScore);
-
-function displayHighScore() {
-  introQuiz.style.display = "none";
-  renderUser();
 }
