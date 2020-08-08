@@ -105,11 +105,11 @@ highscore.style.display = "none";
 
 possibleAnswer.addEventListener("click", setQuestion);
 
-// Display high score users
-recordBtn.addEventListener("click", renderUser);
-
 // Record quiz taker
 recordBtn.addEventListener("click", recordUser);
+
+// Display high score users
+recordBtn.addEventListener("click", renderUser);
 
 // Clear highscore
 clearBtn.addEventListener("click", clearHighscore);
