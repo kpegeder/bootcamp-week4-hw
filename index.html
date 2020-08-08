@@ -10,20 +10,36 @@
   <body>
     <div class="container">
       <div class="introQuiz">
-        <h3>Instructions:</h3>
-        <p>Quiz length</p>
-        <button type="button" class="startQuiz">Start Quiz</button>
+        <h2>Coding Quiz</h2>
+        <p></p>
+        <a class="visitHighscore" href="">View Highscore</a>
+        <button type="button" class="startBtn btn">Start Quiz</button>
       </div>
       <div class="question-container">
         <div class="questionNumber"></div>
         <div class="questions"></div>
         <div class="possibleAnswers"></div>
-        <div class="answer"></div>
       </div>
-      <div class="record-score"></div>
+      <div class="record-score">
+        <form id="user" mothod="POST">
+          <label for="userName">Name</label>
+          <input
+            type="text"
+            placeholder="Jane Doe"
+            name="userName"
+            id="userName"
+          />
+        </form>
+        <button type="button" class="recordBtn btn">Submit</button>
+      </div>
+      <div class="highscore" id="highscore">
+        <h1>Highscores</h1>
+        <ul id="user-list"></ul>
+        <button type="button" class="backBtn btn">Back</button>
+        <button type="button" class="clearBtn btn">Clear Highscores</button>
+      </div>
+      <div class="time"></div>
     </div>
-    <div class="time"></div>
-    <div id="main"></div>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

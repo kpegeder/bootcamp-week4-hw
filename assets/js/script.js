@@ -1,3 +1,4 @@
+// Create question array of objects
 const questionList = [
   {
     question: "What tag is used for JavaScript?",
@@ -63,32 +64,45 @@ const questionList = [
   }
 ];
 
-// Variable for questions
+// Get access html element
+const startQuiz = document.querySelector(".startBtn");
+const introQuiz = document.querySelector(".introQuiz");
+
+const questionContainer = document.querySelector(".question-container");
+const questionNumber = document.querySelector(".questionNumber");
 const question = document.querySelector(".questions");
 const possibleAnswer = document.querySelector(".possibleAnswers");
-const answer = document.querySelector(".answer");
-const timeEl = document.querySelector(".time");
-const questionNumber = document.querySelector(".questionNumber");
-const startQuiz = document.querySelector(".startQuiz");
-const introQuiz = document.querySelector(".introQuiz");
-const recordScore = document.querySelector(".endQuiz");
-const questionContainer = document.querySelector(".question-container");
 
-// let secondsLeft = 10;
+const recordScore = document.querySelector(".record-score");
+const userName = document.querySelector("#userName");
+const user = document.querySelector("#user");
+const userList = document.querySelector("#user-list");
+const recordBtn = document.querySelector(".recordBtn");
+
+const highscore = document.querySelector(".highscore");
+const clearBtn = document.querySelector(".clearBtn");
+const backBtn = document.querySelector(".backBtn");
+const timeEl = document.querySelector(".time");
+
+const seeHighscore = document.querySelector(".visitHighscore");
+
+// Define variables
+let secondsLeft = 60;
 let correct = 0;
 let count = 0;
-let availableQuestion = [];
-let currentQuestion = 0;
-let answerNumber = [];
-let score;
+let record = [];
+
+timeEl.textContent = "Time: " + secondsLeft;
 
 startQuiz.addEventListener("click", beginQuiz);
+recordScore.style.display = "none";
+highscore.style.display = "none";
 
 // Display Intro to Quiz
 function beginQuiz() {
-  console.log("Start Quiz");
-  introQuiz.innerHTML = "";
+  introQuiz.style.display = "none";
   setQuestion();
+  setTime();
 }
 
 possibleAnswer.addEventListener("click", setQuestion);
@@ -115,12 +129,10 @@ function setQuestion() {
     btnMultiChoice.textContent = questionList[count].multipleChoice[j];
 
     btnMultiChoice.addEventListener("click", checkAnwser);
-    possibleAnswer.append(listMultiChoice);
-    listMultiChoice.append(btnMultiChoice);
+    possibleAnswer.appendChild(listMultiChoice);
+    listMultiChoice.appendChild(btnMultiChoice);
+    btnMultiChoice.setAttribute("class", "btn");
   }
-
-  // console.log("Count = " + count);
-  // console.log("Correct " + correct);
 }
 
 function checkAnwser() {
@@ -134,38 +146,114 @@ function checkAnwser() {
     questionList[count].multipleChoice[questionList[count].answer]
   ) {
     correct++;
-    console.log("Correct " + correct);
+  } else {
+    secondsLeft -= 9;
+    console.log("wrong answer");
   }
-  // Create and else with a penalty
-
-  console.log("Current " + count);
 
   count++;
 }
 
-// Get all the answer values
-// function answerList() {
-//   const totalQuestion = questionList.length;
-//   for (let i = 0; i < totalQuestion; i++) {
-//     answerNumber.push(questionList[i].answer);
-//     availableQuestion.push(questionList[i].question);
-//   }
-//   console.log(answerNumber, availableQuestion);
-// }
-// answerList();
-
 function endQuiz() {
   questionContainer.innerHTML = "";
-  // Page set up
+  recordScore.style.display = "block";
+
+  // Display score
+  let h1 = document.createElement("h1");
+  let p = document.createElement("p");
+
+  h1.textContent = "All Done!!!";
+  p.textContent = "Your score is " + correct;
+  recordScore.appendChild(h1);
+  recordScore.appendChild(p);
+  recordScore.insertBefore(h1, recordScore.childNodes[0]);
+  recordScore.insertBefore(p, recordScore.childNodes[1]);
 }
 
-// function recordScore() {
-//   // Check localStorage for users
-//   let user = {
-//     user: user,
-//     score: correct
-//   };
-//   localStorage.setItem("user", JSON.stringify(user));
-// }
+recordBtn.addEventListener("click", recordUser);
+recordBtn.addEventListener("click", renderUser);
 
-// function highScore() {}
+init();
+
+function recordUser() {
+  recordScore.style.display = "none";
+  event.preventDefault();
+  let userID = {
+    name: userName.value.trim(),
+    score: correct
+  };
+  if (userID.name === "") {
+    return;
+  }
+  // Add to record of high score
+  record.push(userID);
+  userName.value = "";
+
+  // Update high score
+  storeHighScore();
+}
+
+function storeHighScore() {
+  localStorage.setItem("userID", JSON.stringify(record));
+}
+
+function init() {
+  let storedUsers = JSON.parse(localStorage.getItem("userID"));
+  if (storedUsers !== null) {
+    record = storedUsers;
+  }
+}
+
+function renderUser() {
+  event.preventDefault();
+  highscore.style.display = "block";
+  timeEl.style.display = "none";
+
+  for (let k = 0; k < record.length; k++) {
+    // Get user name and score
+    let quizTaker = record[k].name;
+    let scoreTaker = record[k].score;
+
+    // Create list of quiz takers
+    let li = document.createElement("li");
+    li.textContent = quizTaker + " = " + scoreTaker;
+    userList.appendChild(li);
+  }
+}
+
+// Create timer for quiz
+function setTime() {
+  let timerInterval = setInterval(function () {
+    secondsLeft--;
+    console.log(secondsLeft);
+
+    timeEl.textContent = "Time: " + secondsLeft;
+
+    if (secondsLeft <= 0 || count == questionList.length) {
+      clearInterval(timerInterval);
+      timeEl.textContent = "Time: 0";
+    }
+  }, 1000);
+}
+
+// Clear highscore
+clearBtn.addEventListener("click", clearHighscore);
+function clearHighscore() {
+  console.log("Clear Highscore");
+  localStorage.clear();
+  userList.innerHTML = "";
+}
+
+// Back button
+backBtn.addEventListener("click", goBack);
+function goBack() {
+  console.log("Back");
+  location.reload();
+}
+
+seeHighscore.addEventListener("click", displayHighScore);
+
+function displayHighScore() {
+  introQuiz.style.display = "none";
+  renderUser();
+}

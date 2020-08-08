@@ -1,5 +1,49 @@
+.container {
+  margin: 50px;
+  padding: 10px;
+}
+
 .introQuiz {
+  text-align: center;
 }
 .question-container {
-  display: "none";
+  text-align: center;
+}
+
+.time {
+  right: 15px;
+  top: 15px;
+  position: fixed;
+}
+
+.record-score {
+  text-align: center;
+}
+
+.btn {
+  color: blue;
+  padding: 5px;
+}
+
+li {
+  list-style-type: none;
+  padding-top: 5px;
+}
+
+.highscore {
+  text-align: center;
+}
+#user {
+  padding: 5px;
+}
+
+ul {
+  text-align: center;
+  padding-inline-start: 0px;
+}
+
+.visitHighscore {
+  left: 15px;
+  top: 15px;
+  position: fixed;
 }
