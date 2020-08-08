@@ -48,7 +48,7 @@ const questionList = [
     answer: 1
   },
   {
-    question: "Methods to navigate teh DOM",
+    question: "Methods to navigate the DOM",
     multipleChoice: [
       "getElementById",
       "childNodes",
