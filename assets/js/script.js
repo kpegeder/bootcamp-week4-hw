@@ -157,13 +157,19 @@ function setQuestion() {
 // See if the answer correct and create a penalty
 function checkAnwser() {
   let element = event.target.textContent;
+  document.body.style.transition = "all 0.7s";
   if (
     element === questionList[count].multipleChoice[questionList[count].answer]
   ) {
     correct += 5;
+    document.body.style.backgroundColor = "green";
   } else {
     secondsLeft -= 4;
+    document.body.style.backgroundColor = "red";
   }
+  setTimeout(function () {
+    document.body.style.backgroundColor = "white";
+  }, 1000);
   count++;
 }
 
