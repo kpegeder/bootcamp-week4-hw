@@ -1,19 +1,29 @@
-# bootcamp-week4-hw
+# Code Quiz
 
-Created an application that will test you knowlegde of JavaScript. The application will display multiple-choice questions with the ability to save your score to compare against others.
+## Summary
 
-[Code Quiz](https://kpegeder.github.io/code-quiz/)
+The application is design to test your knowlegde of JavaScript. There are 10 multiple-choice questions. When the quiz is finished, you have the ability to save your score to compare against others.
 
-The website starts with information about the quiz (start button and view highscore button). The user will have 60 seconds to answer a set of 10 questions. A score will be recorded for a correct answer. If the answer is incorrect, there will be time reduction penalty. At the end of the quiz, the user will show their score and an input name section. Finally, the user will be show the highscore of previous quiz takers.
+## How To Use
+
+Click start quiz to begin seeing questions and a 60 second timer. If the wrong answer is selected, there will be a 5 second deduction penalty. A score will be recorded for correct answer. At the end of the quiz, you will be shown your score and a section to input your name. Finally, you will be show the highscore of previous quiz takers.
 
 The webpage changes are done through the JavaScript.
 
-JavaScript code includes:
--functions
--if/else statements
--for loops
--querySelector
--addEventListener
--objects
--setInterval/clearInterval
--textContent/appendChild/createElement/insertBefore
+## Demo
+
+![Quiz Demo](./assets/images/Code-Quiz.gif)
+
+### Technology Used:
+
+- HTML
+- CSS
+- JavaScript
+
+### Links
+
+Deployed URL: https://kpegeder.github.io/code-quiz/
+
+Github Code URL: https://github.com/kpegeder/code-quiz
+
+### License - MIT
