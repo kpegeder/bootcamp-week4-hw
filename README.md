@@ -24,6 +24,6 @@ The webpage changes are done through the JavaScript.
 
 Deployed URL: https://kpegeder.github.io/code-quiz/
 
-GitHub Code URL: https://github.com/kpegeder/code-quiz
+GitHub Repository URL: https://github.com/kpegeder/code-quiz
 
 ### License - MIT
